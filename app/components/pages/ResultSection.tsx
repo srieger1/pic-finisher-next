@@ -95,31 +95,33 @@ export function ResultSection({
       </div>
 
       {/* Controls separat unter den Bildern */}
-      <div className="flex justify-center">
-        <div className="w-full max-w-xs flex flex-col gap-3">
-          <select
-            value={currentStyle}
-            onChange={(e) => onStyleChange(e.target.value as Style)}
-            disabled={isGenerating}
-            className="w-full px-3 py-2 bg-gray-800 text-white border border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-          >
-            {availableStyles.map((style) => (
-              <option key={style} value={style}>
-                {style}
-              </option>
-            ))}
-          </select>
-
-          <button
-            onClick={onRedraw}
-            disabled={isGenerating}
-            className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{ fontSize: 16 }}
-          >
-            <RefreshCw className="w-5 h-5" />
-            Neu generieren
-          </button>
+      <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-wrap justify-center gap-2">
+          {availableStyles.map((style) => (
+            <button
+              key={style}
+              onClick={() => onStyleChange(style)}
+              disabled={isGenerating}
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                currentStyle === style
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white'
+              }`}
+            >
+              {style}
+            </button>
+          ))}
         </div>
+
+        <button
+          onClick={onRedraw}
+          disabled={isGenerating}
+          className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          style={{ fontSize: 16 }}
+        >
+          <RefreshCw className="w-5 h-5" />
+          Neu generieren
+        </button>
       </div>
 
       <div className="mt-4 text-center">
